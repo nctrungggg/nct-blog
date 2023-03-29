@@ -11,6 +11,10 @@ const PostItemStyles = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
+  & > a {
+    width: 100%;
+  }
+
   .post {
     &-image {
       height: 202px;

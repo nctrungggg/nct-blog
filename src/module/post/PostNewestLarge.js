@@ -5,6 +5,7 @@ import PostCategory from "./PostCategory";
 import PostImage from "./PostImage";
 import PostMeta from "./PostMeta";
 import PostTitle from "./PostTitle";
+
 const PostNewestLargeStyles = styled.div`
   .post {
     &-image {
@@ -13,15 +14,27 @@ const PostNewestLargeStyles = styled.div`
       height: 433px;
       border-radius: 16px;
     }
+
     &-category {
       margin-bottom: 10px;
     }
+
     &-title {
       margin-bottom: 20px;
     }
+
     @media screen and (max-width: 1023.98px) {
       &-image {
         height: 250px;
+      }
+      &-title {
+        margin-bottom: 10px;
+      }
+    }
+
+    @media screen and (max-width: 767.98px) {
+      &-image {
+        height: 180px;
       }
     }
   }
@@ -32,7 +45,9 @@ const PostNewestLarge = ({ data }) => {
   const date = data?.createdAt?.seconds
     ? new Date(data?.createdAt?.seconds * 1000)
     : new Date();
+
   const formatDate = new Date(date).toLocaleDateString("vi-VI");
+
   return (
     <PostNewestLargeStyles>
       <PostImage url={data?.image} alt="" to={data?.slug}></PostImage>
@@ -40,7 +55,7 @@ const PostNewestLarge = ({ data }) => {
       <PostCategory to={data?.category?.slug}>
         {data?.category?.name}
       </PostCategory>
-      <PostTitle to={data?.slug} size="big">
+      <PostTitle to={data?.slug} size="bigest">
         {data?.title}
       </PostTitle>
       <PostMeta

@@ -14,6 +14,8 @@ import styled from "styled-components";
 import { v4 } from "uuid";
 
 const HomeNewestStyles = styled.div`
+  padding: 60px 0;
+
   .layout {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -41,6 +43,7 @@ const HomeNewestStyles = styled.div`
 
 const HomeNewest = () => {
   const [posts, setPosts] = useState([]);
+  console.log(posts);
 
   useEffect(() => {
     const colRef = collection(db, "posts");
@@ -76,7 +79,7 @@ const HomeNewest = () => {
 
         <div className="layout">
           <PostNewestLarge data={first}></PostNewestLarge>
-          
+
           <div className="sidebar">
             {other.length > 0 &&
               other.map((item) => (

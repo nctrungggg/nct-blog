@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/auth-context";
 
 const HomePage = React.lazy(() => import("pages/HomePage"));
+const Contact = React.lazy(() => import("pages/Contact"));
 const CategoryPage = React.lazy(() => import("pages/CategoryPage"));
 const DashboardPage = React.lazy(() => import("pages/DashboardPage"));
 const SignInPage = React.lazy(() => import("pages/SignInPage"));
@@ -36,6 +37,7 @@ function App() {
         <Suspense>
           <Routes>
             <Route path="/" element={<HomePage></HomePage>}></Route>
+            <Route path="/contact" element={<Contact></Contact>}></Route>
             <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
             <Route path="/sign-in" element={<SignInPage></SignInPage>}></Route>
 
@@ -90,11 +92,11 @@ function App() {
                 path="/manage/update-user"
                 element={<UserUpdate></UserUpdate>}
               ></Route>
-              <Route
-                path="/profile"
-                element={<UserProfile></UserProfile>}
-              ></Route>
             </Route>
+            <Route
+              path="/profile"
+              element={<UserProfile></UserProfile>}
+            ></Route>
           </Routes>
         </Suspense>
       </AuthProvider>

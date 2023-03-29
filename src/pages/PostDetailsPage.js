@@ -15,14 +15,15 @@ import { userRole } from "utils/constants";
 import slugify from "slugify";
 
 const PostDetailsPageStyles = styled.div`
-  padding-bottom: 100px;
+  padding-top: 150px;
 
   .post {
     &-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 40px;
+      gap: 50px;
+      text-align: justify;
       margin: 40px 0;
     }
 
@@ -44,8 +45,13 @@ const PostDetailsPageStyles = styled.div`
     }
 
     &-content {
-      max-width: 700px;
+      max-width: 800px;
       margin: 80px auto;
+      text-align: justify;
+
+      &::first-letter {
+        font-size: 26px;
+      }
     }
   }
 
@@ -88,11 +94,12 @@ const PostDetailsPageStyles = styled.div`
   }
 
   @media screen and (max-width: 1023.98px) {
-    padding-bottom: 40px;
+  padding-top: 120px;
 
     .post {
       &-header {
         flex-direction: column;
+        gap: 30px;
       }
 
       &-feature {
@@ -151,7 +158,7 @@ const PostDetailsPage = () => {
   if (!postInfo.title) return null;
 
   const { user } = postInfo;
-  
+
   const date = postInfo?.createdAt?.seconds
     ? new Date(postInfo?.createdAt?.seconds * 1000)
     : new Date();
@@ -161,7 +168,7 @@ const PostDetailsPage = () => {
   return (
     <PostDetailsPageStyles>
       <Layout>
-        <div className="container">
+        <div className="container ">
           <div className="post-header">
             <PostImage
               url={postInfo.image}
@@ -182,14 +189,14 @@ const PostDetailsPage = () => {
               ></PostMeta>
 
               {/* Check if user role is ADMIN then can edit the post */}
-              {/* {userInfo?.role === userRole.ADMIN && (
+              {userInfo?.role === userRole.ADMIN && (
                 <Link
                   to={`/manage/update-post?id=${postInfo.id}`}
                   className="inline-block px-4 py-2 mt-5 text-sm border border-gray-400 rounded-md"
                 >
                   Edit post
                 </Link>
-              )} */}
+              )}
             </div>
           </div>
 

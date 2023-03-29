@@ -33,7 +33,6 @@ const CategoryPage = () => {
   }, [params.slug]);
 
   if (posts.length <= 0) return null;
-  console.log(posts);
 
   return (
     <Layout>

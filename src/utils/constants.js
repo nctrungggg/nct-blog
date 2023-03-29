@@ -1,5 +1,5 @@
 export const theme = {
-  primary: "#1DC071",
+  primary: "#343a40",
   secondary: "#A4D96C",
   grayDark: "#292D32",
   grayLight: "#E7ECF3",
@@ -12,6 +12,7 @@ export const theme = {
   grayf1: "#F1F1F3",
   gray80: "#808191",
   black: "#171725",
+  green: "#0E7490",
 };
 
 export const postStatus = {
@@ -39,3 +40,5 @@ export const userRole = {
 
 export const CATEGORY_PER_PAGE = 5;
 export const POST_PER_PAGE = 5;
+export const USER_PER_PAGE = 5;
+

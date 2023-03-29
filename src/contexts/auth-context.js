@@ -1,7 +1,6 @@
 import { auth, db } from "firebase-app/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
 
 const { createContext, useContext, useState, useEffect } = require("react");
 
@@ -9,6 +8,7 @@ const AuthContext = createContext();
 function AuthProvider(props) {
   const [userInfo, setUserInfo] = useState({});
   const value = { userInfo, setUserInfo };
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -16,6 +16,7 @@ function AuthProvider(props) {
           collection(db, "users"),
           where("email", "==", user.email)
         );
+        
         onSnapshot(docRef, (snapshot) => {
           snapshot.forEach((doc) => {
             setUserInfo({

@@ -151,6 +151,8 @@ const PostUpdate = () => {
     });
 
     toast.success("Update post successfully!");
+    
+    document.body.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const modules = useMemo(

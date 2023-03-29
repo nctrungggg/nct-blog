@@ -9,6 +9,16 @@ const SidebarStyles = styled.div`
   background: #ffffff;
   box-shadow: 10px 10px 20px rgba(218, 213, 213, 0.15);
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+
+  .sidebar-link {
+    &.active > .menu-item,
+    &:hover > .menu-item {
+      background: #f1fbf7;
+      color: ${(props) => props.theme.black};
+    }
+  }
 
   .menu-item {
     display: flex;
@@ -17,18 +27,23 @@ const SidebarStyles = styled.div`
     padding: 14px 20px;
     font-weight: 500;
     color: ${(props) => props.theme.gray80};
-    margin-bottom: 20px;
     cursor: pointer;
-
-    &.active,
-    &:hover {
-      background: #f1fbf7;
-      color: ${(props) => props.theme.primary};
-    }
   }
 
-  @media screen and (max-width: 1023.98px) {
-    display: none;
+  @media screen and (max-width: 767.98px) {
+    width: unset;
+    gap: 10px;
+    position: fixed;
+    top: 26%;
+    left: 0;
+
+    .menu-item {
+      padding: 10px 10px;
+    }
+
+    .menu-text {
+      display: none;
+    }
   }
 `;
 
@@ -151,9 +166,11 @@ const Sidebar = () => {
           );
 
         return (
-          <NavLink to={link.url} className="menu-item" key={link.title}>
-            <span className="menu-icon">{link.icon}</span>
-            <span className="menu-text">{link.title}</span>
+          <NavLink to={link.url} key={link.title} className="sidebar-link">
+            <div className="menu-item">
+              <span className="menu-icon">{link.icon}</span>
+              <span className="menu-text">{link.title}</span>
+            </div>
           </NavLink>
         );
       })}

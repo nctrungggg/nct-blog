@@ -12,7 +12,11 @@ import PostNewestLarge from "module/post/PostNewestLarge";
 import React, { useEffect, useState } from "react";
 import { withErrorBoundary } from "react-error-boundary";
 import styled from "styled-components";
-const HomeFeatureStyles = styled.div``;
+
+const HomeFeatureStyles = styled.div`
+  background-color: #fff;
+  padding: 60px 0;
+`;
 
 const HomeFeature = () => {
   const [posts, setPosts] = useState([]);
@@ -45,7 +49,7 @@ const HomeFeature = () => {
   // const [firstPost, ...otherPost] = posts;
 
   return (
-    <HomeFeatureStyles className="home-block">
+    <HomeFeatureStyles className="home-block" >
       <div className="container">
         <Heading>Featured posts</Heading>
 

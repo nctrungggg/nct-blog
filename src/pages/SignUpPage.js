@@ -48,7 +48,7 @@ const SignUpPage = () => {
     await updateProfile(auth.currentUser, {
       displayName: values.fullname,
       photoURL:
-        "https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.pexels.com/photos/1624076/pexels-photo-1624076.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     });
 
     await setDoc(doc(db, "users", auth.currentUser.uid), {
@@ -56,7 +56,8 @@ const SignUpPage = () => {
       email: values.email,
       password: values.password,
       username: slugify(values.fullname, { lower: true }),
-      avatar: "",
+      avatar:
+        "https://images.pexels.com/photos/1624076/pexels-photo-1624076.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       status: userStatus.ACTIVE,
       role: userRole.USER,
       createdAt: serverTimestamp(),
@@ -112,13 +113,18 @@ const SignUpPage = () => {
           <InputPasswordToggle control={control}></InputPasswordToggle>
         </Field>
         <div className="have-account">
-          You already have an account? <NavLink to={"/sign-in"}>Login</NavLink>{" "}
+          You already have an account?{" "}
+          <NavLink to={"/sign-in"}>
+            Login
+          </NavLink>{" "}
         </div>
         <Button
           type="submit"
-          className="w-full max-w-[300px] mx-auto"
+          className="w-full max-w-[300px] mx-auto "
           isLoading={isSubmitting}
           disabled={isSubmitting}
+          height="50px"
+          kind="green"
         >
           Sign Up
         </Button>

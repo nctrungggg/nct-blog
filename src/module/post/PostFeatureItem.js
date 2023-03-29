@@ -57,6 +57,10 @@ const PostFeatureItemStyles = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 767.98px) {
+    height: 150px;
+  }
 `;
 
 const PostFeatureItem = ({ data }) => {
@@ -83,11 +87,7 @@ const PostFeatureItem = ({ data }) => {
               <PostCategory to={category.slug}>{category.name}</PostCategory>
             )}
 
-            <PostMeta
-              to={slugify(user?.username || "", { lower: true })}
-              authorName={user?.fullname}
-              date={formatDate}
-            ></PostMeta>
+            <PostMeta date={formatDate} color="#ebebeb"></PostMeta>
           </div>
 
           <PostTitle to={data.slug} size="big">

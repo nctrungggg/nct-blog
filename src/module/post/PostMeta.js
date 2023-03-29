@@ -26,21 +26,12 @@ const PostMetaStyles = styled.div`
   }
 `;
 
-const PostMeta = ({
-  date = "Mar 23",
-  authorName = "Andiez Le",
-  className = "",
-  to = "",
-}) => {
+const PostMeta = ({ date = "Mar 23", className = "", color = "" }) => {
   return (
     <PostMetaStyles className={`post-meta ${className}`}>
-      <span className="post-time">{date}</span>
-
-      <span className="post-dot"></span>
-
-      <Link to={`/author/${to}`}>
-        <span className="post-author">{authorName}</span>
-      </Link>
+      <span className="post-time" style={{ color: color }}>
+        {date}
+      </span>
     </PostMetaStyles>
   );
 };

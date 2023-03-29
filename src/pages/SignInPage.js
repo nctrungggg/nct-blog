@@ -15,16 +15,16 @@ import { auth } from "firebase-app/firebase-config";
 import InputPasswordToggle from "components/input/InputPasswordToggle";
 
 const SignInPage = () => {
-  // const schema = yup.object().shape({
-  //   email: yup
-  //     .string()
-  //     .email("Please enter valid email address")
-  //     .required("Please enter your email address"),
-  //   password: yup
-  //     .string()
-  //     .min(8, "Your password must be at least 8 characters or greater")
-  //     .required("Please enter your password"),
-  // });
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Please enter valid email address")
+      .required("Please enter your email address"),
+    password: yup
+      .string()
+      .min(8, "Your password must be at least 8 characters or greater")
+      .required("Please enter your password"),
+  });
 
   const {
     handleSubmit,
@@ -32,7 +32,7 @@ const SignInPage = () => {
     formState: { isValid, isSubmitting, errors },
   } = useForm({
     mode: "onChange",
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   });
 
   useEffect(() => {
@@ -88,15 +88,17 @@ const SignInPage = () => {
           <Label htmlFor="password">Password</Label>
           <InputPasswordToggle control={control}></InputPasswordToggle>
         </Field>
-        <div className="have-account">
+        <div className="have-account pb-6 text-sm">
           You have not had an account?{" "}
-          <NavLink to={"/sign-up"}>Register an account</NavLink>{" "}
+          <NavLink  to={"/sign-up"}>Register an account</NavLink>{" "}
         </div>
         <Button
           type="submit"
-          className="w-full max-w-[300px] mx-auto"
+          className="w-full max-w-[300px] mx-auto hover:bg-cyan-700 hover:text-white transition-all duration-300"
           isLoading={isSubmitting}
           disabled={isSubmitting}
+          height="50px"
+          kind="green"
         >
           Login
         </Button>

@@ -22,7 +22,6 @@ import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import { useAuth } from "contexts/auth-context";
 
-
 const CategoryManage = () => {
   const navigate = useNavigate();
 
@@ -130,16 +129,16 @@ const CategoryManage = () => {
   return (
     <div>
       <DashboardHeading title="Categories" desc="Manage your category">
-        <Button kind="ghost" height="60px" to="/manage/add-category">
+        <Button kind="ghost" height="45px" to="/manage/add-category">
           Create category
         </Button>
       </DashboardHeading>
 
-      <div className="flex justify-end mb-10">
+      <div className="flex md:justify-end mb-10">
         <input
           type="text"
           placeholder="Search category..."
-          className="px-5 py-4 border border-gray-300 rounded-lg outline-none"
+          className=" p-2 md:px-4 md:py-3 border border-gray-300 rounded-lg outline-none"
           onChange={handleInputFilter}
         />
       </div>
@@ -159,7 +158,7 @@ const CategoryManage = () => {
           {categoryList.length > 0 &&
             categoryList.map((category) => (
               <tr key={category.id}>
-                <td>{category.id}</td>
+                <td>{category.id?.slice(0, 5) + "..."}</td>
                 <td>{category.name}</td>
                 <td>
                   <span className="italic text-gray-400">{category.slug}</span>
@@ -197,10 +196,14 @@ const CategoryManage = () => {
 
       {totalCategory > categoryList.length && (
         <div className="mt-10">
-          <Button onClick={handleLoadMoreCategory} className="mx-auto">
+          <Button
+            onClick={handleLoadMoreCategory}
+            className="mx-auto"
+            height="50px"
+            kind="green"
+          >
             Load more
           </Button>
-          {totalCategory}
         </div>
       )}
     </div>

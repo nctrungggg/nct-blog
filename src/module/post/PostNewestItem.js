@@ -68,7 +68,9 @@ const PostNewestItem = ({ data }) => {
         <PostCategory to={data?.category?.slug} type="secondary">
           {data.category?.name}
         </PostCategory>
-        <PostTitle to={data?.slug}>{data.title}</PostTitle>
+        <PostTitle to={data?.slug} className="hidden-text">
+          {data.title}
+        </PostTitle>
         <PostMeta
           to={slugify(data?.user?.username || "", { lower: true })}
           authorName={data?.user?.fullname}

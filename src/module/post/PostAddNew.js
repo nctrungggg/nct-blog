@@ -127,6 +127,7 @@ const PostAddNew = () => {
       const colRef = collection(db, "categories");
       const q = query(colRef, where("status", "==", 1));
       const querySnapshot = await getDocs(q);
+
       let result = [];
 
       querySnapshot.forEach((doc) => {
@@ -143,7 +144,8 @@ const PostAddNew = () => {
   }, []);
 
   useEffect(() => {
-    document.title = "Monkey Blogging - Add new post";
+    document.title = "NCT Blogging - Add new post";
+    document.body.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
   const handleClickOption = async (item) => {
@@ -223,7 +225,7 @@ const PostAddNew = () => {
               onClick={() => setValue("hot", !watchHot)}
             ></Toggle>
           </Field>
-          
+
           <Field>
             <Label>Status</Label>
             <FieldCheckboxes>

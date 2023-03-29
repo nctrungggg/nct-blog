@@ -1,7 +1,10 @@
 import { Button } from "components/button";
 import { useAuth } from "contexts/auth-context";
+import { auth } from "firebase-app/firebase-config";
+import { signOut } from "firebase/auth";
+import { useState } from "react";
 import { useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { userRole } from "utils/constants";
 
@@ -20,12 +23,32 @@ const menuLinks = [
   },
 ];
 
+const userLink = [
+  {
+    title: "Manage",
+    url: "/manage/posts",
+  },
+  {
+    title: "Profile",
+    url: "/profile",
+  },
+  {
+    title: "Log out",
+    url: "/sign-in",
+
+    onClick: () => signOut(auth),
+  },
+];
+
 const HeaderStyles = styled.header`
   position: fixed;
+  top: 0;
   width: 100%;
+  padding: 0 60px;
+  margin: 0 auto;
+
   z-index: 100;
   height: 120px;
-  /* box-shadow: 0 8px 24px rgb(0 34 68 / 10%); */
   transition: all 0.3s linear;
 
   .header {
@@ -43,24 +66,48 @@ const HeaderStyles = styled.header`
     display: flex;
     align-items: center;
     gap: 20px;
+
+    img {
+      width: 45px;
+      height: 45px;
+      border-radius: 100%;
+      margin: 0 auto;
+
+      @media screen and (max-width: 767.98px) {
+        width: 35px;
+        height: 35px;
+      }
+    }
   }
 
   .logo {
-    display: block;
-    max-width: 50px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: ${(props) => props.theme.primary};
+    font-size: 20px;
   }
 
   .menu {
-    display: flex;
     align-items: center;
     gap: 20px;
-    margin-left: 40px;
     list-style: none;
     font-weight: 500;
-    color: white;
+    color: ${(props) => props.theme.primary};
+
+    &-item {
+      padding: 5px 10px;
+    }
   }
 
-  .search {
+  .menu-link {
+    &.active,
+    &:hover {
+      color: ${(props) => props.theme.black};
+      font-weight: 600;
+    }
+  }
+
+  /* .search {
     margin-left: auto;
     padding: 10px 20px;
     border: 1px solid #fcfcfc;
@@ -97,24 +144,24 @@ const HeaderStyles = styled.header`
     & > svg > * {
       stroke: white !important;
     }
-  }
+  } */
 
   @media screen and (max-width: 1023.98px) {
     .logo {
-      max-width: 30px;
-    }
-    .menu,
-    .search,
-    .header-button,
-    .header-auth {
-      display: none;
+      font-size: 18px;
     }
   }
 `;
 
 const Header = () => {
   const { userInfo } = useAuth();
+
   const headerRef = useRef(null);
+  const [menu, setMenu] = useState(false);
+
+  const handleClickMenu = () => {
+    setMenu(!menu);
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -134,17 +181,13 @@ const Header = () => {
 
   return (
     <HeaderStyles ref={headerRef}>
-      <div className="container header">
+      <div className=" header">
         <div className="header-main">
           <NavLink to="/">
-            <img
-              width="40px"
-              srcSet="/logo.png 2x"
-              alt="monkey-blogging"
-              className="logo"
-            />
+            <h2 className="logo">NCT</h2>
           </NavLink>
-          <ul className="menu">
+
+          <ul className="hidden menu md:flex">
             {menuLinks.map((item) => (
               <li className="menu-item" key={item.title}>
                 <NavLink to={item.url} className="menu-link">
@@ -153,6 +196,7 @@ const Header = () => {
               </li>
             ))}
           </ul>
+
           {/* <div className="search">
             <input
               type="text"
@@ -190,34 +234,37 @@ const Header = () => {
               </svg>
             </span>
           </div> */}
-          {!userInfo && (
-            <Button
-              type="button"
-              height="56px"
-              className="header-button"
-              to="/sign-in"
-            >
-              Login
-            </Button>
-          )}
 
-          {userInfo && userInfo?.role === userRole.ADMIN && (
-            <div className="header-auth">
-              <Button
-                kind="secondary"
-                type="button"
-                height="48px"
-                className="header-button"
-                to="/manage/posts"
-              >
-                Dashboard
-              </Button>
-            </div>
-          )}
+          <div className="flex items-center gap-5">
+            <div>
+              {!userInfo && (
+                <Button
+                  type="button"
+                  height="48px"
+                  className="header-button"
+                  to="/sign-in"
+                >
+                  Login
+                </Button>
+              )}
 
-          {userInfo && userInfo?.role !== userRole.ADMIN && (
-            <div className="header-auth">
-              <Button
+              {/* {userInfo && userInfo?.role === userRole.ADMIN && (
+                <div className="header-auth">
+                  <Button
+                    kind="secondary"
+                    type="button"
+                    height="48px"
+                    className="header-button"
+                    to="/manage/posts"
+                  >
+                    Dashboard
+                  </Button>
+                </div>
+              )} */}
+
+              {userInfo && (
+                <div className="header-auth">
+                  {/* <Button
                 kind="secondary"
                 type="button"
                 height="48px"
@@ -225,9 +272,116 @@ const Header = () => {
                 to="/profile"
               >
                 Profile
-              </Button>
+              </Button> */}
+
+                  <div className="relative cursor-pointer group">
+                    <img src={userInfo.avatar} alt="user-avatar" />
+
+                    <ul className=" w-[100px] mt-3 rounded-md absolute   text-center invisible bg-white  group-hover:opacity-100 group-hover:visible transition-all ">
+                      {userInfo?.role === userRole.ADMIN &&
+                        userLink.map((link) => {
+                          return (
+                            <Link
+                              key={link.title}
+                              to={link.url}
+                              onClick={link.onClick}
+                              className="p-2 text-sm block hover:text-[#2700ff]  first:border-b "
+                            >
+                              {link.title}
+                            </Link>
+                          );
+                        })}
+
+                      {userInfo?.role !== userRole.ADMIN &&
+                        userLink.slice(1).map((link) => {
+                          return (
+                            <Link
+                              key={link.title}
+                              to={link.url}
+                              onClick={link.onClick}
+                              className="p-2 text-sm block hover:text-[#2700ff]  first:border-b "
+                            >
+                              {link.title}
+                            </Link>
+                          );
+                        })}
+                    </ul>
+                  </div>
+                </div>
+              )}
             </div>
-          )}
+
+            <div
+              onClick={handleClickMenu}
+              className="z-10 cursor-pointer md:hidden"
+            >
+              {!menu ? (
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                    color="#000"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                    />
+                  </svg>
+                </div>
+              ) : (
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                    color="#000"
+                    style={{ width: "30px" }}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </div>
+              )}
+            </div>
+
+            <div
+              className={
+                !menu
+                  ? " menu-mobile opacity-0 invisible translate-x-full "
+                  : "menu-mobile   translate-x-0 visible opacity-100 "
+              }
+            >
+              <ul className="text-center pt-[120px]  ">
+                {menuLinks.map((item, idx) => (
+                  <li
+                    key={idx}
+                    className="py-6 text-lg font-medium transition-all md:text-xl hover:text-purple dark:hover:text-primary"
+                  >
+                    <NavLink
+                      className="menu-link"
+                      onClick={handleClickMenu}
+                      to={item.url}
+                      smooth="true"
+                      duration={500}
+                    >
+                      {item.title}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </HeaderStyles>

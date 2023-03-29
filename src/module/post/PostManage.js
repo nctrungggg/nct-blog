@@ -7,12 +7,13 @@ import { db } from "firebase-app/firebase-config";
 import {
   collection,
   deleteDoc,
-  doc, getDocs,
+  doc,
+  getDocs,
   limit,
   onSnapshot,
   query,
   startAfter,
-  where
+  where,
 } from "firebase/firestore";
 import { debounce } from "lodash";
 import DashboardHeading from "module/dashboard/DashboardHeading";
@@ -103,7 +104,7 @@ const PostManage = () => {
         break;
     }
   };
-  
+
   const handleSearchPost = debounce((e) => {
     setFilter(e.target.value);
   }, 250);
@@ -137,19 +138,21 @@ const PostManage = () => {
   // if (userInfo.role !== userRole.ADMIN) return null;
   return (
     <div>
-      <DashboardHeading
-        title="All posts"
-        desc="Manage all posts"
-      ></DashboardHeading>
+      <div className="flex justify-between">
+        <DashboardHeading
+          title="All posts"
+          desc="Manage all posts"
+        ></DashboardHeading>
 
-      <div className="flex justify-end gap-5 mb-10">
-        <div className="w-full max-w-[300px]">
-          <input
-            type="text"
-            className="w-full p-4 border border-gray-300 border-solid rounded-lg"
-            placeholder="Search post..."
-            onChange={handleSearchPost}
-          />
+        <div className="flex md:justify-end gap-5 mb-10">
+          <div className="w-full max-w-[200px] md:max-w-[300px]">
+            <input
+              type="text"
+              className="w-full  p-2 md:px-4 md:py-3 border border-gray-300 border-solid rounded-lg"
+              placeholder="Search post..."
+              onChange={handleSearchPost}
+            />
+          </div>
         </div>
       </div>
 
@@ -175,15 +178,17 @@ const PostManage = () => {
               return (
                 <tr key={post.id}>
                   <td>{post.id?.slice(0, 5) + "..."}</td>
-                  <td className="!pr-[100px]">
-                    <div className="flex items-center gap-x-3">
+                  <td className="!pr-[80px]">
+                    <div className="flex items-center gap-x-3 w-[400px]">
                       <img
                         src={post.image}
                         alt=""
                         className="w-[66px] h-[55px] rounded object-cover"
                       />
                       <div className="flex-1">
-                        <h3 className="font-semibold">{post.title}</h3>
+                        <h3 className="font-semibold text-justify hidden-text">
+                          {post.title}
+                        </h3>
                         <time className="text-sm text-gray-500">
                           Date: {formatDate}
                         </time>
@@ -191,14 +196,16 @@ const PostManage = () => {
                     </div>
                   </td>
                   <td>
-                    <span className="text-gray-500">{post.category?.name}</span>
+                    <span className="text-gray-500 min-w-[80px] inline-block">
+                      {post.category?.name}
+                    </span>
                   </td>
                   <td>
                     <span className="text-gray-500">{post.user?.username}</span>
                   </td>
                   <td>{renderPostStatus(post.status)}</td>
                   <td>
-                    <div className="flex items-center text-gray-500 gap-x-3">
+                    <div className="flex items-center text-gray-500 gap-x-3 ">
                       <ActionView
                         onClick={() => navigate(`/${post.slug}`)}
                       ></ActionView>
@@ -222,7 +229,12 @@ const PostManage = () => {
 
       {total > postList.length && (
         <div className="mt-10 text-center">
-          <Button className="mx-auto w-[200px]" onClick={handleLoadMorePost}>
+          <Button
+            className="mx-auto w-[200px]"
+            height="50px"
+            kind="green"
+            onClick={handleLoadMorePost}
+          >
             Load more
           </Button>
         </div>

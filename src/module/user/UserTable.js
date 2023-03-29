@@ -1,29 +1,7 @@
 import { Table } from "components/table";
-import { db } from "firebase-app/firebase-config";
-import { collection, onSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
 import UserItem from "./UserItem";
 
-const UserTable = () => {
-  const [userList, setUserList] = useState([]);
-
-  useEffect(() => {
-    const colRef = collection(db, "users");
-
-    onSnapshot(colRef, (snapshot) => {
-      const results = [];
-
-      snapshot.forEach((doc) => {
-        results.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-
-      setUserList(results);
-    });
-  }, []);
-
+const UserTable = ({ userList }) => {
   return (
     <div>
       <Table>
