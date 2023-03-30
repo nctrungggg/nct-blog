@@ -119,7 +119,7 @@ const CategoryUpdate = () => {
         </div>
 
         <Button
-          kind="primary"
+          kind="green"
           className="mx-auto w-[200px]"
           type="submit"
           disabled={isSubmitting}

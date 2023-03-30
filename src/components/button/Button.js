@@ -6,12 +6,12 @@ import { NavLink } from "react-router-dom";
 
 const ButtonStyles = styled.button`
   cursor: pointer;
-  padding: 0 25px;
+  padding: 0 22px;
   line-height: 1;
   border-radius: 8px;
   font-weight: 500;
   font-size: 16px;
-  height: ${(props) => props.height || "66px"};
+  height: ${(props) => props.height || "55px"};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +19,7 @@ const ButtonStyles = styled.button`
   @media screen and (max-width: 767.98px) {
     font-size: 14px;
     padding: 0 20px;
-    height: ${(props) => props.height || "38px"};
+    height: ${(props) => props.height || "45px"};
   }
 
   ${(props) =>

@@ -228,7 +228,7 @@ const UserAddNew = () => {
         </div>
 
         <Button
-          kind="primary"
+          kind="green"
           type="submit"
           className="mx-auto w-[200px]"
           isLoading={isSubmitting}

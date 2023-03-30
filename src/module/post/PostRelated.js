@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import PostItem from "./PostItem";
 
 const PostRelated = ({ postId = "", categoryName }) => {
+  console.log(categoryName);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const PostRelated = ({ postId = "", categoryName }) => {
     });
   }, [categoryName, postId]);
 
-  // if (!categoryId || posts.length <= 0) return null;
+  if (posts.length <= 0) return null;
 
   return (
     <div className="post-related">

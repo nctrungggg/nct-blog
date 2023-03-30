@@ -27,7 +27,7 @@ const HomeFeature = () => {
       colRef,
       where("status", "==", 1),
       where("hot", "==", true),
-      limit(3)
+      // limit(3)
     );
 
     onSnapshot(queries, (snapshot) => {

@@ -94,7 +94,7 @@ const PostDetailsPageStyles = styled.div`
   }
 
   @media screen and (max-width: 1023.98px) {
-  padding-top: 120px;
+    padding-top: 120px;
 
     .post {
       &-header {
@@ -129,6 +129,7 @@ const PostDetailsPageStyles = styled.div`
 const PostDetailsPage = () => {
   const { slug } = useParams();
   const [postInfo, setPostInfo] = useState({});
+  console.log(postInfo);
 
   useEffect(() => {
     (async function () {
@@ -209,7 +210,7 @@ const PostDetailsPage = () => {
               }}
             ></div>
 
-            {/* <AuthorBox userId={user.id}></AuthorBox> */}
+            <AuthorBox userId={user.id}></AuthorBox>
           </div>
 
           <PostRelated

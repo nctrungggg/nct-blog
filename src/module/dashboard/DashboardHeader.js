@@ -40,8 +40,8 @@ const DashboardHeaderStyles = styled.div`
   }
 
   .header-avatar {
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
 
     img {
       width: 100%;
@@ -112,7 +112,7 @@ const DashboardHeader = () => {
                   <Button
                     to="/manage/add-post"
                     className="header-button"
-                    height="52px"
+                    height="50px"
                   >
                     Write new post
                   </Button>

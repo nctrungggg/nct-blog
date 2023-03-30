@@ -153,7 +153,7 @@ const sidebarLinks = [
 ];
 const Sidebar = () => {
   return (
-    <SidebarStyles className="sidebar">
+    <SidebarStyles className="sidebar md:sticky md:top-[20%]">
       {sidebarLinks.map((link) => {
         if (link.onClick)
           return (

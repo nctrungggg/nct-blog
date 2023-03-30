@@ -27,6 +27,8 @@ const HomeBannerStyles = styled.div`
       max-width: 500px;
       color: white;
 
+      text-align: justify;
+
       @media screen and (max-width: 767.98px) {
         width: 100%;
       }

@@ -43,12 +43,10 @@ const DashboardStyles = styled.div`
       }
       &-main {
         grid-template-columns: 100%;
-        padding: 10px;
+        padding: 0 0 20px 20px;
       }
     }
   }
-
-
 `;
 const DashboardLayout = () => {
   const { userInfo } = useAuth();
@@ -58,7 +56,7 @@ const DashboardLayout = () => {
       <DashboardHeader></DashboardHeader>
       <DashboardStyles>
         <div className="container ">
-          <div className="dashboard-main">
+          <div className="dashboard-main relative">
             <Sidebar></Sidebar>
             <div className="dashboard-children">
               <Outlet></Outlet>

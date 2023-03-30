@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Button } from "components/button";
 import { Radio } from "components/checkbox";
 import { Dropdown } from "components/dropdown";
@@ -6,6 +7,8 @@ import ImageUpload from "components/image/ImageUpload";
 import { Input } from "components/input";
 import { Label } from "components/label";
 import Toggle from "components/toggle/Toggle";
+import { imgbbAPI } from "config/apiConfig";
+import { useAuth } from "contexts/auth-context";
 import { db } from "firebase-app/firebase-config";
 import {
   collection,
@@ -14,23 +17,20 @@ import {
   getDocs,
   query,
   updateDoc,
-  where,
+  where
 } from "firebase/firestore";
 import useFirebaseImage from "hooks/useFirebaseImage";
 import DashboardHeading from "module/dashboard/DashboardHeading";
-import React, { useEffect, useMemo, useState } from "react";
+import ImageUploader from "quill-image-uploader";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
-import { postStatus, userRole } from "utils/constants";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import ImageUploader from "quill-image-uploader";
-import axios from "axios";
-import { imgbbAPI } from "config/apiConfig";
 import slugify from "slugify";
-import { useAuth } from "contexts/auth-context";
 import Swal from "sweetalert2";
+import { postStatus, userRole } from "utils/constants";
 
 Quill.register("modules/imageUploader", ImageUploader);
 
@@ -151,7 +151,7 @@ const PostUpdate = () => {
     });
 
     toast.success("Update post successfully!");
-    
+
     document.body.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -257,7 +257,7 @@ const PostUpdate = () => {
         <div className="mb-10">
           <Field>
             <Label>Content</Label>
-            <div className="w-full entry-content">
+            <div className="w-full entry-content max-h-[400px] overflow-y-auto">
               <ReactQuill
                 modules={modules}
                 theme="snow"

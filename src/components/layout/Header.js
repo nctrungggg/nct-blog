@@ -68,8 +68,8 @@ const HeaderStyles = styled.header`
     gap: 20px;
 
     img {
-      width: 45px;
-      height: 45px;
+      width: 50px;
+      height: 50px;
       border-radius: 100%;
       margin: 0 auto;
 
@@ -150,6 +150,10 @@ const HeaderStyles = styled.header`
     .logo {
       font-size: 18px;
     }
+  }
+
+  @media screen and (max-width: 767.98px) {
+    padding: 0 40px;
   }
 `;
 

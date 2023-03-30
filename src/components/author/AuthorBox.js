@@ -22,12 +22,8 @@ const AuthorBox = ({ userId = "" }) => {
 
   return (
     <div className="author">
-      <div className="author-image">
-        <img src={user?.avatar} alt="" />
-      </div>
-      
       <div className="author-content">
-        <h3 className="author-name">{user?.fullname}</h3>
+        <h3 className="author-name">Tác giả: {user?.fullname}</h3>
         <p className="author-desc">{user?.description}</p>
       </div>
     </div>
